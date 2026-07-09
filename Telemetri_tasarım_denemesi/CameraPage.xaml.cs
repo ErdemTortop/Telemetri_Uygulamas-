@@ -78,12 +78,14 @@ namespace Telemetri_tasarım_denemesi
         {
             if (AppState.RecordFlag == true)
             {
-                if (AppState.BekleyenSatırlar.Count > 0)
+                if (!AppState.yazimKuyrugu.IsEmpty)
                 {
-                    string TopluYaziFinal = string.Join("\n", AppState.BekleyenSatırlar) + "\n";
-                    File.AppendAllText(AppState.KayıtDosya, TopluYaziFinal, System.Text.Encoding.UTF8);
-                    AppState.BekleyenSatırlar.Clear();
-                    AppState.KayıtSayaci = 0;
+                    StringBuilder sb = new StringBuilder();
+                    while (AppState.yazimKuyrugu.TryDequeue(out var satir))
+                    {
+                        sb.AppendLine(satir);
+                    }
+                    File.AppendAllText(AppState.KayıtDosya, sb.ToString(), System.Text.Encoding.UTF8);
                 }
 
                 AppState.RecordFlag = false;
