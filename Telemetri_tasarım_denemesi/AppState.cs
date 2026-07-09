@@ -16,7 +16,7 @@ namespace Telemetri_tasarım_denemesi
 {
     public static class AppState
     {
-        static byte[] buffer = new byte[8];
+        static byte[] buffer = new byte[9];
         public static SerialPort SerialPort { get; set; }
 
         public static Thread okumaThread { get; set; }
@@ -32,8 +32,6 @@ namespace Telemetri_tasarım_denemesi
         public static System.Threading.Timer yazimTimer;
 
         public static bool RecordFlag;
-
-        public static int ACK_Sayi = 0;
 
         public static string dosyaYolu;
 
@@ -155,6 +153,11 @@ namespace Telemetri_tasarım_denemesi
             }
             else if (GelenByteIndex == 7)
             {
+                buffer[7] = gelen;
+                GelenByteIndex = 8;
+            }
+            else if (GelenByteIndex == 8)
+            {
                 int CRC = (byte)(buffer[2] + buffer[3] + buffer[4] + buffer[5]) & 0xFF;
                 if (gelen == CRC)
                 {
@@ -172,19 +175,17 @@ namespace Telemetri_tasarım_denemesi
                             KayipPaket += (fark - 1);
                         }
                     }
-                    hiz = buffer[2];
-                    voltaj = buffer[3];
+                    voltaj = buffer[2];
+                    hiz = buffer[3];
                     sicaklik = buffer[4];
                     enerji = buffer[5];
                     GelenByteIndex = 0;
                     KayitYap();
                     SonVeriZamani = DateTime.Now;
-                    ACK_Sayi++;
-                    if (ACK_Sayi == 10)
+                    if (buffer[7] == 9)
                     {
                         byte[] ACK_Byte = new byte[] { 1 };
                         SerialPort.Write(ACK_Byte, 0, 1);
-                        ACK_Sayi = 0;
                     }
                     OncekiSeq = buffer[6];
                 }
