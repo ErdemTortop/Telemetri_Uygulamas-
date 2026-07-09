@@ -12,7 +12,8 @@
         
         mc:Ignorable="d"
         FontFamily="Segoe UI Semibold"
-        Title="Asena Telemetri" Height="840" Width="1400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/SolarIcon.png" >
+        Title="Asena Telemetri" Height="840" Width="1400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/SolarIcon.png"
+        RenderOptions.ClearTypeHint="Enabled">
 
 
 
@@ -106,8 +107,10 @@
                 <Grid.Background>
                     <LinearGradientBrush StartPoint ="0,0" EndPoint="1,1">
                         <GradientStop Color="#14191F" Offset="0" />
-                        <GradientStop Color="#14191F" Offset="0.3" />
-                        <GradientStop Color="#FF0F1314" Offset="0.5" />
+                        <GradientStop Color="#131A20" Offset="0.25" />
+                        <GradientStop Color="#111619" Offset="0.5" />
+                        <GradientStop Color="#0F1314" Offset="0.75" />
+                        <GradientStop Color="#0F1314" Offset="1" />
                     </LinearGradientBrush>
                 </Grid.Background>
 
@@ -116,13 +119,16 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
+                <Image Source="/images/Photos/noise.png" 
+                    Stretch="UniformToFill" 
+                    Opacity="0.0010" 
+                    IsHitTestVisible="False"
+                    Grid.Column="0" Grid.ColumnSpan="2"/>
                 
-
                 <Border>
                     <Border Background="#262835" BorderThickness="2,2,0,2" BorderBrush="#262835">
 
-                        <Grid > 
-
+                        <Grid> 
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="100"/>
                                 <RowDefinition Height="25"/>
