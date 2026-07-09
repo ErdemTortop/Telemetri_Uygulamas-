@@ -11,10 +11,12 @@
 
   <ItemGroup>
     <None Remove="images\icons\camera.png" />
+    <None Remove="images\icons\chart.png" />
     <None Remove="images\icons\cross.png" />
     <None Remove="images\icons\cross_red.png" />
     <None Remove="images\icons\deadline.png" />
     <None Remove="images\icons\home.png" />
+    <None Remove="images\icons\location.png" />
     <None Remove="images\icons\remove.png" />
     <None Remove="images\icons\remove_red.png" />
     <None Remove="images\icons\SolarIcon.png" />
@@ -38,10 +40,12 @@
 
   <ItemGroup>
     <Resource Include="images\icons\camera.png" />
+    <Resource Include="images\icons\chart.png" />
     <Resource Include="images\icons\cross.png" />
     <Resource Include="images\icons\cross_red.png" />
     <Resource Include="images\icons\deadline.png" />
     <Resource Include="images\icons\home.png" />
+    <Resource Include="images\icons\location.png" />
     <Resource Include="images\icons\remove.png" />
     <Resource Include="images\icons\remove_red.png" />
     <Resource Include="images\icons\SolarPng - file.png" />

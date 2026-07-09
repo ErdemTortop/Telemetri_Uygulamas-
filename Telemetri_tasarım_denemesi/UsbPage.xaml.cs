@@ -52,7 +52,7 @@ namespace Telemetri_tasarım_denemesi
             {
                 PortComboBox.Items.Add(port);
             }
-
+            RateBox.SelectedItem = "9600";
             RateBox.Items.Add("9600");
             RateBox.Items.Add("115200");
             RateBox.Items.Add("19200");
@@ -74,13 +74,10 @@ namespace Telemetri_tasarım_denemesi
                 RateBox.SelectedItem = AppState.SecilenRate;
             }
         }
-
         private async void PortBaglanButon_Click(object sender, RoutedEventArgs e)
         {
-
             try
             {
-
                 if (PortComboBox.SelectedItem != null && RateBox.SelectedItem != null)
                 {
                     if (AppState.SerialPort == null || !AppState.SerialPort.IsOpen)
@@ -97,128 +94,41 @@ namespace Telemetri_tasarım_denemesi
                     else
                     {
                         MessageBox.Show("Dostum, seçtiğin port doluymuş zaten.");
-
                         await UyarıBlink("#E6B84A", "#262835", "#4CAF7D");
-
-                      /*  BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#E6B84A");
-                        await Task.Delay(300);
-                        BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#262835");
-                        await Task.Delay(300);
-                        BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#E6B84A");
-                        await Task.Delay(300);
-                        BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#262835");
-                        await Task.Delay(300);
-                        BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#E6B84A");
-                        await Task.Delay(300);
-                        BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#262835");
-                        await Task.Delay(300);
-                        BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#4CAF7D");*/
-
-                    }                }
+                    }                
+                }
                 else
                 {
-
                     MessageBox.Show("Dostum, ya baud rate seçmedin yada port seçmedin.", "Error  ");
-
                     await UyarıBlink("#E6B84A", "#262835", "#E05C5C" );
-
-                    /*BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#E6B84A");
-                    await Task.Delay(300);
-                    BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#262835");
-                    await Task.Delay(300);
-                    BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#E6B84A");
-                    await Task.Delay(300);
-                    BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#262835");
-                    await Task.Delay(300);
-                    BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#E6B84A");
-                    await Task.Delay(300);
-                    BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#262835");
-                    await Task.Delay(300);
-                    BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#E05C5C");*/
                 }
-
-
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message,"Ufak Bir hata oluştu");
-
                 await UyarıBlink("#E6B84A", "#262835", "#E05C5C");
-
-               /* BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#E6B84A");
-                await Task.Delay(300);
-                BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#262835");
-                await Task.Delay(300);
-                BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#E6B84A");
-                await Task.Delay(300);
-                BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#262835");
-                await Task.Delay(300);
-                BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#E6B84A");
-                await Task.Delay(300);
-                BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#262835");
-                await Task.Delay(300);
-                BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#E05C5C");*/
             }
         }
-
-       
-
         private async void PortIptalButon_Click(object sender, RoutedEventArgs e)
         {
-
             try
             {
-
                 if (AppState.SerialPort != null && AppState.SerialPort.IsOpen)
                 {
                     AppState.StopListening();
                     AppState.SerialPort.Close();
-
                     BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#E05C5C");
                 }
                 else
                 {
                     MessageBox.Show("Dostum, daha port seçmedin ki");
-
                     await UyarıBlink("#E6B84A", "#262835", "#E05C5C");
-
-                   /* BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#E6B84A");
-                    await Task.Delay(300);
-                    BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#262835");
-                    await Task.Delay(300);
-                    BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#E6B84A");
-                    await Task.Delay(300);
-                    BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#262835");
-                    await Task.Delay(300);
-                    BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#E6B84A");
-                    await Task.Delay(300);
-                    BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#262835");
-                    await Task.Delay(300);
-                    BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#E05C5C");*/
                 }
-
             }
             catch (Exception ex)
-            {
-
+            { 
                 MessageBox.Show(ex.Message, "Ufak Bir hata oluştu");
-
                 await UyarıBlink("#E6B84A", "#262835", "#E05C5C");
-
-                /*BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#E6B84A");
-                await Task.Delay(300);
-                BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#262835");
-                await Task.Delay(300);
-                BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#E6B84A");
-                await Task.Delay(300);
-                BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#262835");
-                await Task.Delay(300);
-                BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#E6B84A");
-                await Task.Delay(300);
-                BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#262835");
-                await Task.Delay(300);
-                BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#E05C5C");*/
             }
         }
 
@@ -229,9 +139,7 @@ namespace Telemetri_tasarım_denemesi
             foreach (string port in SerialPort.GetPortNames())
             {
                 PortComboBox.Items.Add(port);
-
             }
-
             RateBox.Items.Add("9600");
             RateBox.Items.Add("115200");
             RateBox.Items.Add("19200");

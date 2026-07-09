@@ -102,10 +102,10 @@
                             <TextBlock Text="Rate :" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground=" #E2E8F0" FontWeight="Light" />
                         </Border>
                         <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"  >
-                            <ComboBox  FontSize="26" x:Name="PortComboBox" Margin="30,60,30,60" Foreground="#14191F" FontWeight="Light" OpacityMask="#FF14191F"  />
+                            <ComboBox  FontSize="20" x:Name="PortComboBox" Margin="40,70,40,70" Foreground="#14191F" FontWeight="Light" OpacityMask="#FF14191F"  />
                         </Border>
                         <Border Grid.Row="2" Grid.Column="1" >
-                            <ComboBox x:Name="RateBox" Margin="30,60,30,60" Background="#E2E8F0" FontWeight="Light"  Foreground="#14191F" FontSize="26"/>
+                            <ComboBox x:Name="RateBox" Margin="40,70,40,70" Background="#E2E8F0" FontWeight="Light"  Foreground="#14191F" FontSize="20"/>
                         </Border>
                     </Grid>
 

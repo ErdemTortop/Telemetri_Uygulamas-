@@ -38,18 +38,19 @@ namespace Telemetri_tasarım_denemesi
 
         private void CameraPage_Loaded(object sender, RoutedEventArgs e)
         {
-
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(500);
-            timer.Tick += Timer_Tick;
+            if (timer == null)
+            {
+                timer = new DispatcherTimer();
+                timer.Interval = TimeSpan.FromMilliseconds(500);
+                timer.Tick += Timer_Tick; 
+            }
             timer.Start();
-
         }
 
 
         private void CameraPage_Unloaded(object sender, RoutedEventArgs e)
         {
-            //timer.Stop(); //hata verirse burayı aç ve başka bir şey düşün.
+            timer.Stop();
         }
 
         private void Kayit_Click(object sender, RoutedEventArgs e)
@@ -60,10 +61,11 @@ namespace Telemetri_tasarım_denemesi
 
                 if (AppState.SerialPort != null && AppState.SerialPort.IsOpen)
                 {
-                        AppState.dosyaYolu = $"log_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.csv";
-                        AppState.ExKayıtDosya = AppState.dosyaYolu;
-                        AppState.RecordFlag = true;
-                        KayıtDurumuRenk.Background = (Brush)new BrushConverter().ConvertFrom("#4CAF7D");
+                    string belgelerim = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                    AppState.dosyaYolu = System.IO.Path.Combine(belgelerim, $"log_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.csv");
+                    AppState.ExKayıtDosya = AppState.dosyaYolu;
+                    AppState.RecordFlag = true;
+                    KayıtDurumuRenk.Background = (Brush)new BrushConverter().ConvertFrom("#4CAF7D");
                 }
                 else
                 {
@@ -121,7 +123,6 @@ namespace Telemetri_tasarım_denemesi
         {
             if (AppState.RecordFlag == true)
             {
-                AppState.KayitYap();
                     KayitTextBox.Text += $"{DateTime.Now:HH:mm:ss}" +
                             $", Hız: {AppState.hiz} km/h" +
                             $", Voltaj: {AppState.voltaj} V" +

@@ -24,53 +24,46 @@ namespace Telemetri_tasarım_denemesi
 {
     public partial class DataPage : Page
     {
-
          DispatcherTimer timer;
-
         public DataPage()
         {
             InitializeComponent();
         }
-
         private void DataPage_Loaded(object sender, RoutedEventArgs e)
         {
-           
+        HizLbl.Content = $"{AppState.hiz} km/h";
+        VoltajLbl.Content = $"{AppState.voltaj} V";
+        DereceLbl.Content = $"{AppState.sicaklik} °C";
+        whLbl.Content = $"{AppState.enerji} wh";
+        PaketKaybi.Content = $"{AppState.KayipPaket} Tane Paket Kayıp";
 
-            Dispatcher.Invoke(() =>
+            if (timer == null)
             {
-                HizLbl.Content = $"{AppState.hiz} km/h";
-                VoltajLbl.Content = $"{AppState.voltaj} V";
-                DereceLbl.Content = $"{AppState.sicaklik} °C";
-                whLbl.Content = $"{AppState.enerji} wh";
-            });
-
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(500);
-            timer.Tick += Timer_Tick;
-            timer.Start();
+                timer = new DispatcherTimer();
+                timer.Interval = TimeSpan.FromMilliseconds(100);
+                timer.Tick += Timer_Tick; 
+            }
+        timer.Start();
         }
-
-
         private void DataPage_Unloaded(object sender, RoutedEventArgs e)
         {
-
             timer.Stop();
-
         }
-
-
         private void Timer_Tick(object sender, EventArgs e)
         {
-
             HizLbl.Content = $"{AppState.hiz} km/h";
             VoltajLbl.Content = $"{AppState.voltaj} V";
             DereceLbl.Content = $"{AppState.sicaklik} °C";
             whLbl.Content = $"{AppState.enerji} wh";
-
+            PaketKaybi.Content = $"{AppState.KayipPaket} Tane Paket Kayıp";
+            bool BayatVeri = (DateTime.Now - AppState.SonVeriZamani).TotalSeconds > 2;
+            if (BayatVeri == true)
+            {
+                HizLbl.Content = "Bağlantı Koptu";
+                VoltajLbl.Content = "Bağlantı Koptu";
+                DereceLbl.Content = "Bağlantı Koptu";
+                whLbl.Content = "Bağlantı Koptu";
+            }
         }
-
-
-
-
     }
 }

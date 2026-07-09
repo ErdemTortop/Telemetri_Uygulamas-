@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Telemetri;
 
 namespace Telemetri_tasarım_denemesi
 {
@@ -22,6 +23,8 @@ namespace Telemetri_tasarım_denemesi
             MainFrame.Navigate(new HomePage());
             SolarBorder.Background = Brushes.Transparent;
             UsbBorder.Background = Brushes.Transparent;
+            GraphBorder.Background = Brushes.Transparent;
+            GpsBorder.Background = Brushes.Transparent;
             dataBorder.Background = Brushes.Transparent;
             RecordBorder.Background = Brushes.Transparent;
             HomeBorder.Background = new SolidColorBrush(Color.FromRgb(20, 25, 31));
@@ -34,8 +37,10 @@ namespace Telemetri_tasarım_denemesi
             SolarBorder.Background = Brushes.Transparent;
             UsbBorder.Background = new SolidColorBrush(Color.FromRgb(20, 25, 31));
             dataBorder.Background = Brushes.Transparent;
+            GraphBorder.Background = Brushes.Transparent;
             RecordBorder.Background = Brushes.Transparent;
             HomeBorder.Background = Brushes.Transparent;
+            GpsBorder.Background = Brushes.Transparent;
 
         }
 
@@ -44,6 +49,8 @@ namespace Telemetri_tasarım_denemesi
             MainFrame.Navigate(new DataPage());
             SolarBorder.Background = Brushes.Transparent;
             HomeBorder.Background = Brushes.Transparent;
+            GraphBorder.Background = Brushes.Transparent;
+            GpsBorder.Background = Brushes.Transparent;
             UsbBorder.Background = Brushes.Transparent;
             dataBorder.Background = new SolidColorBrush(Color.FromRgb(20, 25, 31));
             RecordBorder.Background = Brushes.Transparent;
@@ -55,6 +62,8 @@ namespace Telemetri_tasarım_denemesi
             SolarBorder.Background = Brushes.Transparent;
             UsbBorder.Background = Brushes.Transparent;
             HomeBorder.Background = Brushes.Transparent;
+            GraphBorder.Background = Brushes.Transparent;
+            GpsBorder.Background = Brushes.Transparent;
             dataBorder.Background = Brushes.Transparent;
             RecordBorder.Background = new SolidColorBrush(Color.FromRgb(20, 25, 31));
         }
@@ -66,7 +75,9 @@ namespace Telemetri_tasarım_denemesi
             UsbBorder.Background = Brushes.Transparent;
             dataBorder.Background = Brushes.Transparent;
             RecordBorder.Background = Brushes.Transparent;
+            GpsBorder.Background = Brushes.Transparent;
             HomeBorder.Background = Brushes.Transparent;
+            GraphBorder.Background = Brushes.Transparent;
         }
 
         private void Home_Click(object sender, RoutedEventArgs e)
@@ -75,8 +86,34 @@ namespace Telemetri_tasarım_denemesi
             SolarBorder.Background = Brushes.Transparent;
             UsbBorder.Background = Brushes.Transparent;
             dataBorder.Background = Brushes.Transparent;
+            GpsBorder.Background = Brushes.Transparent;
             RecordBorder.Background = Brushes.Transparent;
+            GraphBorder.Background = Brushes.Transparent;
             HomeBorder.Background = new SolidColorBrush(Color.FromRgb(20, 25, 31));
+        }
+
+        private void Graph_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new Graph_Page());
+            SolarBorder.Background = Brushes.Transparent;
+            UsbBorder.Background = Brushes.Transparent;
+            dataBorder.Background = Brushes.Transparent;
+            GpsBorder.Background = Brushes.Transparent;
+            RecordBorder.Background = Brushes.Transparent;
+            HomeBorder.Background = Brushes.Transparent;
+            GraphBorder.Background = new SolidColorBrush(Color.FromRgb(20, 25, 31));
+        }
+
+        private void Gps_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new Gps_Page());
+            SolarBorder.Background = Brushes.Transparent;
+            GpsBorder.Background = new SolidColorBrush(Color.FromRgb(20, 25, 31));
+            UsbBorder.Background = Brushes.Transparent;
+            dataBorder.Background = Brushes.Transparent;
+            RecordBorder.Background = Brushes.Transparent;
+            HomeBorder.Background = Brushes.Transparent;
+            GraphBorder.Background = Brushes.Transparent;
         }
 
         private void MainFrame_Navigated(object sender, NavigationEventArgs e)
@@ -112,5 +149,7 @@ namespace Telemetri_tasarım_denemesi
             if (e.ButtonState == MouseButtonState.Pressed)
                 this.DragMove();
         }
+
+        
     }
 }

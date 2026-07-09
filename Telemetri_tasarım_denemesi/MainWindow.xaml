@@ -126,13 +126,13 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="100"/>
                                 <RowDefinition Height="25"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="240"/>
                                 <RowDefinition Height="80"/>
-                                <RowDefinition Height="80"/>
-                                <RowDefinition Height="80"/>
-                                <RowDefinition Height="250"/>
-                                <RowDefinition Height="80"/>
-                                <RowDefinition Height="80"/>
-
                             </Grid.RowDefinitions>
                             <Border x:Name="SolarBorder" CornerRadius="25,0,0,25" BorderBrush="Black" BorderThickness="0" Grid.Column="0" Grid.Row="0">
                                 <Button Style="{StaticResource NavButtonStyle}" x:Name="SolarButon" Click="SolarTeam_Click" >
@@ -164,7 +164,19 @@
                                 </Button>
                             </Border>
 
-                            <Border x:Name="HomeBorder" CornerRadius="25,0,0,25" BorderBrush="#3D3D4E"  BorderThickness="0" Grid.Column="0" Grid.Row="6">
+                            <Border x:Name="GraphBorder" CornerRadius="25,0,0,25" BorderBrush="#3D3D4E"  BorderThickness="0" Grid.Column="0" Grid.Row="5">
+                                <Button Style="{StaticResource NavButtonStyle}" x:Name="Graph_Buton" Click="Graph_Click" >
+                                    <Image Source="/images/icons/chart.png" Width="30" Height="30"/>
+                                </Button>
+                            </Border>
+
+                            <Border x:Name="GpsBorder" CornerRadius="25,0,0,25" BorderBrush="#3D3D4E"  BorderThickness="0" Grid.Column="0" Grid.Row="6">
+                                <Button Style="{StaticResource NavButtonStyle}" x:Name="Gps_Buton" Click="Gps_Click" >
+                                    <Image Source="/images/icons/location.png" Width="30" Height="30"/>
+                                </Button>
+                            </Border>
+
+                            <Border x:Name="HomeBorder" CornerRadius="25,0,0,25" BorderBrush="#3D3D4E"  BorderThickness="0" Grid.Column="0" Grid.Row="8">
                                 <Button Style="{StaticResource NavButtonStyle}" x:Name="HomeButon" Click="Home_Click" >
                                     <Image Source="/images/icons/home.png" Width="40" Height="40"/>
                                 </Button>
