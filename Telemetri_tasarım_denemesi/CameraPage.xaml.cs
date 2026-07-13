@@ -45,6 +45,10 @@ namespace Telemetri_tasarım_denemesi
                 timer.Tick += Timer_Tick; 
             }
             timer.Start();
+            if (AppState.RecordFlag == true)
+            {
+                KayıtDurumuRenk.Background = (Brush)new BrushConverter().ConvertFrom("#4CAF7D");
+            }
         }
 
 
