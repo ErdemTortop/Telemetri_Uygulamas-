@@ -105,26 +105,20 @@
     <Grid>
         <Border BorderBrush="#262835" BorderThickness="0,2,2,2"  MouseLeftButtonDown="Window_MouseLeftButtonDown">
             <Grid>
-                <Grid.Background>
+                
+                      <Grid.Background>
                     <LinearGradientBrush StartPoint ="0,0" EndPoint="1,1">
                         <GradientStop Color="#14191F" Offset="0" />
-                        <GradientStop Color="#131A20" Offset="0.25" />
-                        <GradientStop Color="#111619" Offset="0.5" />
-                        <GradientStop Color="#0F1314" Offset="0.75" />
-                        <GradientStop Color="#0F1314" Offset="1" />
-                    </LinearGradientBrush>
+                        <GradientStop Color="#14191F" Offset="0.3" />
+                        <GradientStop Color="#FF0F1314" Offset="0.5" />
+                     </LinearGradientBrush>
                 </Grid.Background>
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="1300"/>
                 </Grid.ColumnDefinitions>
-
-                <Image Source="/images/Photos/noise.png" 
-                    Stretch="UniformToFill" 
-                    Opacity="0.0015" 
-                    IsHitTestVisible="False"
-                    Grid.Column="0" Grid.ColumnSpan="2"/>
+                <!--<Image Grid.Column="1" Source="/images/Photos/Gradient.png" />-->
                 
                 <Border>
                     <Border Background="#262835" BorderThickness="2,2,0,2" BorderBrush="#262835">
@@ -141,6 +135,7 @@
                                 <RowDefinition Height="240"/>
                                 <RowDefinition Height="80"/>
                             </Grid.RowDefinitions>
+                            
                             <Border x:Name="SolarBorder" CornerRadius="25,0,0,25" BorderBrush="Black" BorderThickness="0" Grid.Column="0" Grid.Row="0">
                                 <Button Style="{StaticResource NavButtonStyle}" x:Name="SolarButon" Click="SolarTeam_Click" >
                                     <Image Source="/images/icons/SolarPng - file.png" Height="100" Width="100"/>

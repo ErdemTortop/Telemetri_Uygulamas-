@@ -23,6 +23,7 @@
     <None Remove="images\icons\SolarPng - file.png" />
     <None Remove="images\icons\usb.png" />
     <None Remove="images\Photos\Baykus.png" />
+    <None Remove="images\Photos\Gradient.png" />
     <None Remove="images\Photos\noise.png" />
     <None Remove="images\Photos\OnurFurkan.jpeg" />
     <None Remove="images\Photos\SolarTeam.JPG" />
@@ -56,6 +57,7 @@
   <ItemGroup>
     <Resource Include="images\icons\SolarIcon.png" />
     <Resource Include="images\Photos\Baykus.png" />
+    <Resource Include="images\Photos\Gradient.png" />
     <Resource Include="images\Photos\noise.png" />
     <Resource Include="images\Photos\OnurFurkan.jpeg" />
     <Resource Include="images\Photos\SolarTeam.JPG" />
