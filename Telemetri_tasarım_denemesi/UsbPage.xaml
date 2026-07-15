@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Telemetri_tasarım_denemesi"
       Loaded="UsbPage_Loaded"
+      Unloaded="UsbPage_Unloaded"
       mc:Ignorable="d"
       FontFamily="Segoe UI Semibold"
       d:DesignHeight="800" d:DesignWidth="1300"

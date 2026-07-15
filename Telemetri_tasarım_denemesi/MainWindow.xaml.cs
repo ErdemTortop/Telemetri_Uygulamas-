@@ -20,6 +20,7 @@ namespace Telemetri_tasarım_denemesi
         public MainWindow()
         {
             InitializeComponent();
+            AppState.BaglantiIzlemeyiBaslat();
             MainFrame.Navigate(new HomePage());
             SolarBorder.Background = Brushes.Transparent;
             UsbBorder.Background = Brushes.Transparent;

@@ -48,6 +48,7 @@ namespace Telemetri_tasarım_denemesi
 
         private void UsbPage_Loaded(object sender, RoutedEventArgs e)
         {
+            AppState.DurumDegisti += Durum_Degisti;
             foreach (string port in SerialPort.GetPortNames())
             {
                 PortComboBox.Items.Add(port);
@@ -145,11 +146,30 @@ namespace Telemetri_tasarım_denemesi
             RateBox.Items.Add("19200");
             RateBox.Items.Add("57600");
         }
+        private void Durum_Degisti(AppState.BaglantiDurumu yeniDurum)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                switch (yeniDurum)
+                {
+                    case AppState.BaglantiDurumu.Bagli:
+                        BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#4CAF7D");
+                        break;
+                    case AppState.BaglantiDurumu.Kopuk:
+                        BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#E05C5C");
+                        break;
+                    case AppState.BaglantiDurumu.YenidenBaglaniyor:
+                        BaglantıDurumuLblRenk.Background = (Brush)new BrushConverter().ConvertFrom("#E6B84A");
+                        break;
+                }
+            });
+        }
 
-
+        private void UsbPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            AppState.DurumDegisti -= Durum_Degisti;
+        }
     }
-
-
 }
 
 
