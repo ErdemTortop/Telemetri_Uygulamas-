@@ -158,7 +158,7 @@ namespace Telemetri_tasarım_denemesi
             }
             else if (GelenByteIndex == 8)
             {
-                int CRC = (byte)(buffer[2] + buffer[3] + buffer[4] + buffer[5]) & 0xFF;
+                int CRC = (byte)(buffer[2] + buffer[3] + buffer[4] + buffer[5] + buffer[6] + buffer[7]) & 0xFF;
                 if (gelen == CRC)
                 {
                     if (AppState.IlkVeriGeldi == false)
@@ -184,8 +184,8 @@ namespace Telemetri_tasarım_denemesi
                     SonVeriZamani = DateTime.Now;
                     if (buffer[7] == 9)
                     {
-                        byte[] ACK_Byte = new byte[] { 1 };
-                        SerialPort.Write(ACK_Byte, 0, 1);
+                        byte[] ACK_Byte = new byte[] { 1, 1, 1};
+                        SerialPort.Write(ACK_Byte, 0, 3);
                     }
                     OncekiSeq = buffer[6];
                 }
