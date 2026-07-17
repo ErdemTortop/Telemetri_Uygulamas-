@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Telemetri_tasarım_denemesi
 {
     /// <summary>
-    /// Interaction logic for HomaPage.xaml
+    /// Interaction logic for HomePage.xaml
     /// </summary>
-    public partial class HomePage : Page
+    public partial class HomePageNoInt : Page
     {
-        public HomePage()
+        public HomePageNoInt()
         {
             InitializeComponent();  
         }

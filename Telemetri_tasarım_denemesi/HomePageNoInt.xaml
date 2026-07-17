@@ -1,0 +1,32 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Telemetri_tasarım_denemesi"
+      xmlns:Wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf" x:Class="Telemetri_tasarım_denemesi.HomePageNoInt"
+      mc:Ignorable="d" 
+      FontFamily="Segoe UI Semibold"
+      d:DesignHeight="800" d:DesignWidth="1300"
+      Title="HomePageNoInt">
+
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF242733"/>
+                <GradientStop Color="#FF282A36" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="353*"/>
+            <RowDefinition Height="347*"/>
+        </Grid.RowDefinitions>
+        <Border CornerRadius="20" BorderThickness="0" Height="70" Width="385" HorizontalAlignment="Left" Margin="10,15,0,15"/>
+        <TextBlock Foreground="#E2E8F0" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="   Asena Telemetri Ana Ekran " VerticalAlignment="Center" FontSize="30"/>
+        <Image Margin="567,0,-291,-324" Grid.Row="1" Source="/SolarIcon.png" Stretch="Fill" Grid.RowSpan="2"/>
+        <Label Content="ESTÜ SOLAR&#xD;&#xA;TEAM" HorizontalAlignment="Left" Margin="10,42,0,0" Grid.Row="1" VerticalAlignment="Top" Foreground="#FFFCB366" Height="558" Width="1118" FontSize="120" Grid.RowSpan="2" FontWeight="Bold"/>
+
+
+    </Grid>
+</Page>

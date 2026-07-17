@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Net.Http;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -81,9 +82,31 @@ namespace Telemetri_tasarım_denemesi
             GraphBorder.Background = Brushes.Transparent;
         }
 
-        private void Home_Click(object sender, RoutedEventArgs e)
+        public async Task<bool> IsInternetAvailableAsync()
         {
-            MainFrame.Navigate(new HomePage());
+            using (var client = new HttpClient())
+            {
+                // Set a short timeout so your UI doesn't freeze waiting for a dead connection
+                client.Timeout = TimeSpan.FromSeconds(3);
+
+                try
+                {
+                    // Request just the headers from a highly reliable server to save data
+                    using (var response = await client.GetAsync("https://google.com", HttpCompletionOption.ResponseHeadersRead))
+                    {
+                        return response.IsSuccessStatusCode;
+                    }
+                }
+                catch
+                {
+                    // Any network exception means the internet is unreachable
+                    return false;
+                }
+            }
+        }
+
+        private async void Home_Click(object sender, RoutedEventArgs e)
+        {
             SolarBorder.Background = Brushes.Transparent;
             UsbBorder.Background = Brushes.Transparent;
             dataBorder.Background = Brushes.Transparent;
@@ -91,6 +114,20 @@ namespace Telemetri_tasarım_denemesi
             RecordBorder.Background = Brushes.Transparent;
             GraphBorder.Background = Brushes.Transparent;
             HomeBorder.Background = new SolidColorBrush(Color.FromRgb(20, 25, 31));
+
+            bool hasInternet = await IsInternetAvailableAsync();
+
+            if (hasInternet)
+            {
+                // Proceed with loading your WebView2
+                MainFrame.Navigate(new HomePage());
+            }
+            else
+            {
+                // Handle offline mode (e.g., show a local HTML file or an error message)
+                System.Windows.MessageBox.Show("No internet connection detected. Please check your network.");
+                MainFrame.Navigate(new HomePageNoInt());
+            }
         }
 
         private void Graph_Click(object sender, RoutedEventArgs e)
@@ -126,18 +163,16 @@ namespace Telemetri_tasarım_denemesi
         {
             if (AppState.RecordFlag == true)
             {
-                MessageBox.Show("Hâlâ kayıt yapılmaktadır", "Uyarı !", MessageBoxButton.OK);
+                //MessageBox.Show("Hâlâ kayıt yapılmaktadır", "Uyarı !", MessageBoxButton.OK);
+                if (MessageBox.Show("Hâlâ kayıt yapılmaktadır.\nKapatmak istediğinize emin misiniz?", "Uyarı!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    this.Close();
+                }
             }
             else
             {
-               if (MessageBox.Show("Kapatmak istediğinize emin misiniz?", "Uyarı!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-               {
                 this.Close();
-               } 
             }
-
-            
-            
         }
 
         private void Min_Click(object sender, RoutedEventArgs e)
