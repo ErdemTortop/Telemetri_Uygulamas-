@@ -36,8 +36,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="LiveChartsCore.SkiaSharpView" Version="2.0.0-rc6.1" />
-    <PackageReference Include="System.IO.Ports" Version="10.0.3" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.5" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4078.44" />
+    <PackageReference Include="System.IO.Ports" Version="10.0.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Force matching package versions to align the internal IDrawnView types -->
+    <PackageReference Include="LiveChartsCore" Version="2.0.5-rc2" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView" Version="2.0.5-rc2" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.5-rc2" />
   </ItemGroup>
 
   <ItemGroup>

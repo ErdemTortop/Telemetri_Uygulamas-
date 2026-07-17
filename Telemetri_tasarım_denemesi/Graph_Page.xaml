@@ -3,39 +3,67 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+      xmlns:v="clr-namespace:LiveChartsCore.SkiaSharpView;assembly=LiveChartsCore.SkiaSharpView"
       xmlns:local="clr-namespace:Telemetri"
       Loaded="GraphPage_Loaded"
       Unloaded="GraphPage_Unloaded"
       mc:Ignorable="d"
       FontFamily="Segoe UI Semibold"
       d:DesignHeight="800" d:DesignWidth="1300"
-      Title="Graph_Page">
+      Title="Graph_Page"
+      x:Name="ThisPage">
+
+    <Page.Resources>
+        <!-- Define the collection safely in resources -->
+        <x:Array x:Key="MyCustomYAxis" Type="{x:Type v:Axis}">
+            <v:Axis MinLimit="0" MaxLimit="100" TextSize="10" />
+        </x:Array>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
-        <RowDefinition Height="100"/>
-        <RowDefinition Height="200"/>
-        <RowDefinition Height="200"/>
-        <RowDefinition Height="200"/>
-        <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="220"/>
+            <RowDefinition Height="240"/>
+            <RowDefinition Height="240"/>
+            <RowDefinition Height="0"/>
         </Grid.RowDefinitions>
-        <Border CornerRadius="20" BorderThickness="0" Height="70" Width="490" HorizontalAlignment="Left" Margin="10,15,0,15"/>
-        <TextBlock Foreground="#E2E8F0" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="   Asena Telemetri Grafik Takip Ekranı" VerticalAlignment="Center" FontSize="30"/>
-     
-        <Border Grid.Row="1" BorderBrush="#3D3D4E" BorderThickness="1" Background="#262835" CornerRadius="20" Margin="150, 20, 150, 20">
-            <Border Margin="20, 20, 20, 20">
 
-            </Border>
-        </Border>
-        <Border Grid.Row="2" BorderBrush="#3D3D4E" BorderThickness="1" Background="#262835" CornerRadius="20" Margin="150, 20, 150, 20">
+        <Border CornerRadius="20" BorderThickness="0" Width="490" HorizontalAlignment="Left" Margin="10,15,0,15"/>
+        <TextBlock Foreground="#E2E8F0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="   Asena Telemetri Grafik Takip Ekranı" VerticalAlignment="Center" FontSize="30" Height="40" Width="501"/>
+
+        <!-- FIRST GRAPH CONTAINER (e.g., Speed Tracker) -->
+        <Border Grid.Row="1" BorderBrush="#3D3D4E" BorderThickness="1" Background="#262835" CornerRadius="20" Margin="150,22,150,22">
             <Border Margin="20, 20, 20, 20">
-                
+                <lvc:CartesianChart YAxes="{StaticResource MyCustomYAxis}" x:Name="Chart1"
+                    Series="{Binding DataContext.MySeries, ElementName=ThisPage}"
+                    XAxes="{Binding DataContext.XAxes, ElementName=ThisPage}">
+                </lvc:CartesianChart>
             </Border>
         </Border>
-        <Border Grid.Row="3" BorderBrush="#3D3D4E" BorderThickness="1" Background="#262835" CornerRadius="20" Margin="150, 20, 150, 20">
+
+        <!-- SECOND CONTAINER (e.g., Battery Temp Tracker) -->
+        <Border Grid.Row="2" BorderBrush="#3D3D4E" BorderThickness="1" Background="#262835" CornerRadius="20" Margin="150,20,150,20">
             <Border Margin="20, 20, 20, 20">
-                
+                <!-- SEPARATED: Now tracking MySeries2 and XAxes2, with small YAxis fonts -->
+                <lvc:CartesianChart YAxes="{StaticResource MyCustomYAxis}" x:Name="Chart2"
+                    Series="{Binding DataContext.MySeries2, ElementName=ThisPage}"
+                    XAxes="{Binding DataContext.XAxes2, ElementName=ThisPage}">
+                </lvc:CartesianChart>
             </Border>
         </Border>
+
+        <!-- THIRD CONTAINER (e.g., Current/Voltage Tracker) -->
+        <Border Grid.Row="3" BorderBrush="#3D3D4E" BorderThickness="1" Background="#262835" CornerRadius="20" Margin="150,20,150,20">
+            <Border Margin="20, 20, 20, 20">
+                <!-- SEPARATED: Now tracking MySeries3 and XAxes3, with small YAxis fonts -->
+                <lvc:CartesianChart YAxes="{StaticResource MyCustomYAxis}" x:Name="Chart3"
+                    Series="{Binding DataContext.MySeries3, ElementName=ThisPage}"
+                    XAxes="{Binding DataContext.XAxes3, ElementName=ThisPage}">
+                </lvc:CartesianChart>
+            </Border>
+        </Border>
+
     </Grid>
 </Page>
