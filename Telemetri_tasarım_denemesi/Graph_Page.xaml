@@ -27,7 +27,6 @@
             <RowDefinition Height="220"/>
             <RowDefinition Height="240"/>
             <RowDefinition Height="240"/>
-            <RowDefinition Height="0"/>
         </Grid.RowDefinitions>
 
         <Border CornerRadius="20" BorderThickness="0" Width="490" HorizontalAlignment="Left" Margin="10,15,0,15"/>
@@ -64,6 +63,9 @@
                 </lvc:CartesianChart>
             </Border>
         </Border>
+        <Button Style="{StaticResource OrangeHoverButton}" x:Name="GrafikKaydetButon" Margin="1066,37,34,203" Click="GrafikKaydetButon_Click" Grid.RowSpan="2">
+            <TextBlock  TextWrapping="Wrap" Foreground="#E2E8F0" Text="Kaydet" FontSize="20" FontWeight="Light"/>
+        </Button>
 
     </Grid>
 </Page>

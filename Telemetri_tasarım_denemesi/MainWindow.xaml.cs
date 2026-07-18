@@ -21,15 +21,14 @@ namespace Telemetri_tasarım_denemesi
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.Navigate(new HomePage());
-            SolarBorder.Background = Brushes.Transparent;
-            UsbBorder.Background = Brushes.Transparent;
-            GraphBorder.Background = Brushes.Transparent;
-            GpsBorder.Background = Brushes.Transparent;
-            dataBorder.Background = Brushes.Transparent;
-            RecordBorder.Background = Brushes.Transparent;
-            HomeBorder.Background = new SolidColorBrush(Color.FromRgb(20, 25, 31));
-
+            if (Telemetri.Properties.Settings.Default.usbIsMainPage)
+            {
+                Usb_Click(null, null);
+            }
+            else
+            {
+                Home_Click(null, null);
+            }
         }
       
         private void Usb_Click(object sender, RoutedEventArgs e)
@@ -185,6 +184,59 @@ namespace Telemetri_tasarım_denemesi
                 this.DragMove();
         }
 
-        
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Escape:
+            
+                    WindowState = WindowState.Minimized;
+                    break;
+                case Key.W:
+                    if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
+                    {
+                        this.Close();
+                    }
+                    break;
+                case Key.Tab:
+                    if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
+                    {
+                        if (UsbBorder.Background != Brushes.Transparent)
+                        {
+                            Data_Click(sender, e);
+                        }
+                        else if(dataBorder.Background != Brushes.Transparent)
+                        {
+                            Record_Click(sender, e);
+                        }
+                        else if(RecordBorder.Background != Brushes.Transparent)
+                        {
+                            Graph_Click(sender, e);
+                        }
+                        else if (GraphBorder.Background != Brushes.Transparent)
+                        {
+                            Gps_Click(sender, e);
+                        }
+                        else if (GpsBorder.Background != Brushes.Transparent)
+                        {
+                            Home_Click(sender, e);
+                        }
+                        else if (HomeBorder.Background != Brushes.Transparent)
+                        {
+                            Usb_Click(sender, e);
+                        }
+                        else if (SolarBorder.Background != Brushes.Transparent)
+                        {
+                            Home_Click(sender, e);
+                        }
+                    }
+                    break;
+                        
+            }
+        }
     }
 }

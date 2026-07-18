@@ -15,7 +15,7 @@
         Title="Asena Telemetri" Height="840" Width="1400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/SolarIcon.png"
         RenderOptions.ClearTypeHint="Enabled"
         RenderOptions.BitmapScalingMode="HighQuality"
-        RenderOptions.EdgeMode="Aliased">
+        RenderOptions.EdgeMode="Aliased" KeyDown="Window_KeyDown">
 
 
 
@@ -103,7 +103,7 @@
 
     </Window.Resources>
     <Grid>
-        <Border BorderBrush="#262835" BorderThickness="0,2,2,2"  MouseLeftButtonDown="Window_MouseLeftButtonDown">
+        <Border BorderBrush="#262835" BorderThickness="0,2,2,2"  MouseLeftButtonDown="Window_MouseLeftButtonDown" MouseDown="Border_MouseDown">
             <Grid>
                 
                       <Grid.Background>

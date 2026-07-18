@@ -5,7 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Telemetri_tasarım_denemesi"
       xmlns:Wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf" x:Class="Telemetri_tasarım_denemesi.HomePageNoInt"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
+      Loaded="HomePageNoIntLoaded"
       FontFamily="Segoe UI Semibold"
       d:DesignHeight="800" d:DesignWidth="1300"
       Title="HomePageNoInt">
@@ -26,6 +27,8 @@
         <TextBlock Foreground="#E2E8F0" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="   Asena Telemetri Ana Ekran " VerticalAlignment="Center" FontSize="30"/>
         <Image Margin="567,0,-291,-324" Grid.Row="1" Source="/SolarIcon.png" Stretch="Fill" Grid.RowSpan="2"/>
         <Label Content="ESTÜ SOLAR&#xD;&#xA;TEAM" HorizontalAlignment="Left" Margin="10,42,0,0" Grid.Row="1" VerticalAlignment="Top" Foreground="#FFFCB366" Height="558" Width="1118" FontSize="120" Grid.RowSpan="2" FontWeight="Bold"/>
+        <TextBlock x:Name="VersionLabel" Foreground="#E2E8F0" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="Version" VerticalAlignment="Center" FontSize="30" Width="82" Margin="4126,0,0,0" Height="40"/>
+        <Image Margin="152,67,348,0" Grid.Row="2" Source="/images/Photos/Baykus.png" Stretch="Fill"/>
 
 
     </Grid>

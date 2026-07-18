@@ -9,7 +9,7 @@
       FontFamily="Segoe UI Semibold"
       d:DesignHeight="800" d:DesignWidth="1300"
       Title="UsbPage">
-      
+
 
 
 
@@ -54,13 +54,6 @@
                         <TextBlock  Grid.Row="3" TextWrapping="Wrap" Foreground="#E2E8F0" Text="Bağlantıyı Kes" FontSize="20" FontWeight="Light"/>
                     </Button>
                 </Border>
-
-
-                <Border Background="#262835" BorderThickness="0" CornerRadius="20" Grid.Row="5" Width="200" Height="80">
-                    <Button Style="{StaticResource OrangeHoverButton}" x:Name="PortBaglantıYenileButon" Click="PortYenileButon_Click" >
-                        <TextBlock Grid.Row="3" TextWrapping="Wrap" Foreground="#E2E8F0" Text="Portları Yenile" FontSize="20" FontWeight="Light"/>
-                    </Button>
-                </Border>
             </Grid>
             <Grid Grid.Column="3">
                 <Grid.RowDefinitions>
@@ -102,7 +95,7 @@
                             <TextBlock Text="Rate :" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground=" #E2E8F0" FontWeight="Light" />
                         </Border>
                         <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"  >
-                            <ComboBox  FontSize="20" x:Name="PortComboBox" Margin="40,70,40,70" Foreground="#14191F" FontWeight="Light" OpacityMask="#FF14191F"  />
+                            <ComboBox  FontSize="20" x:Name="PortComboBox" Margin="40,70,40,70" Foreground="#14191F" FontWeight="Light" OpacityMask="#FF14191F" ContextMenuOpening="PortsSelectionOpened"  />
                         </Border>
                         <Border Grid.Row="2" Grid.Column="1" >
                             <ComboBox x:Name="RateBox" Margin="40,70,40,70" Background="#E2E8F0" FontWeight="Light"  Foreground="#14191F" FontSize="20"/>
@@ -112,6 +105,7 @@
                 </Border>
 
             </Grid>
+            <CheckBox x:Name="SpecialCheckbox" Content="açılma sayfası" HorizontalAlignment="Left" Margin="0,660,0,0" VerticalAlignment="Top" Grid.Column="1" Checked="CheckBox_Checked" BorderBrush="Black" Foreground="White" Background="White" MouseEnter="CheckBox_MouseEnter" MouseLeave="SpecialCheckbox_MouseLeave" Unchecked="SpecialCheckbox_Unchecked"/>
         </Grid>
 
     </Grid>

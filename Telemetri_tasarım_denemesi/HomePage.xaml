@@ -8,6 +8,7 @@
       mc:Ignorable="d" 
       FontFamily="Segoe UI Semibold"
       d:DesignHeight="800" d:DesignWidth="1300"
+      Loaded="HomePage_Loaded"
       Title="HomePage">
 
     <Grid>
@@ -21,7 +22,7 @@
 
 
         <Wpf:WebView2 HorizontalAlignment="Left" Height="700" Grid.Row="1" VerticalAlignment="Bottom" Width="1300" Source="https://solarteamestu.com" Grid.RowSpan="2" ZoomFactor="0.8"/>
-        <TextBlock Foreground="#E2E8F0" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="                                                                                                                                        V 1.0" VerticalAlignment="Center" FontSize="30" Width="1300"/>
+        <TextBlock x:Name="VersionLabel" Foreground="#E2E8F0" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="Version" VerticalAlignment="Center" FontSize="30" Width="82" Margin="1148,0,0,0" Height="40"/>
 
 
     </Grid>
