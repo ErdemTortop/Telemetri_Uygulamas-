@@ -1,5 +1,6 @@
 ﻿using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore.SkiaSharpView.SKCharts;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +19,11 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using Telemetri_tasarım_denemesi;
+using System;
+using System.IO;
+using System.Windows;
+using System.Windows.Controls;
+using LiveChartsCore.SkiaSharpView.SKCharts; // Required for the standalone Skia chart renderer
 
 namespace Telemetri
 {
@@ -141,6 +147,78 @@ namespace Telemetri
             }
         }
 
+        /// <summary>
+        /// Renders and saves the current state of Chart1 into a standalone PNG file.
+        /// </summary>
+        private void SaveChartAsPng(string saveDestination)
+        {
+            try
+            {
+                // 1. Create a specialized off-screen Cartesian chart builder matching your UI styles
+                var skChart1 = new SKCartesianChart
+                {
+                    Width = 1200,      // Resolution width of the output PNG image
+                    Height = 600,      // Resolution height of the output PNG image
+                    Series = Chart1.Series, // Reuses the live streaming data points directly
+                    XAxes = Chart1.XAxes,   // Reuses the live grid timeline layout
+                    YAxes = Chart1.YAxes    // Reuses the small font configuration
+                };
+
+                var skChart2 = new SKCartesianChart
+                {
+                    Width = 1200,      // Resolution width of the output PNG image
+                    Height = 600,      // Resolution height of the output PNG image
+                    Series = Chart2.Series, // Reuses the live streaming data points directly
+                    XAxes = Chart2.XAxes,   // Reuses the live grid timeline layout
+                    YAxes = Chart2.YAxes    // Reuses the small font configuration
+                };
+
+                var skChart3 = new SKCartesianChart
+                {
+                    Width = 1200,      // Resolution width of the output PNG image
+                    Height = 600,      // Resolution height of the output PNG image
+                    Series = Chart3.Series, // Reuses the live streaming data points directly
+                    XAxes = Chart3.XAxes,   // Reuses the live grid timeline layout
+                    YAxes = Chart3.YAxes    // Reuses the small font configuration
+                };
+
+                // 2. Render the vector data into an image byte stream and write to disk
+                using (var image1 = skChart1.GetImage())
+                using (var image2 = skChart2.GetImage())
+                using (var image3 = skChart3.GetImage())
+                using (var data1 = image1.Encode(SkiaSharp.SKEncodedImageFormat.Png, 100)) // 100 = Maximum Quality
+                using (var data2 = image2.Encode(SkiaSharp.SKEncodedImageFormat.Png, 100))
+                using (var data3 = image3.Encode(SkiaSharp.SKEncodedImageFormat.Png, 100))
+                using (var stream = File.OpenWrite(saveDestination + "1.png"))
+                {
+                    data1.SaveTo(stream);
+
+                    using (var stream2 = File.OpenWrite(saveDestination + "2.png"))
+                    {
+                        data2.SaveTo(stream2);
+                    }
+                    using (var stream3 = File.OpenWrite(saveDestination + "3.png"))
+                    {
+                        data3.SaveTo(stream3);
+                    }
+                }
+
+                MessageBox.Show($"Grafik başarıyla kaydedildi:\n{saveDestination}", "PNG Dışa Aktarma", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Grafik kaydedilirken hata oluştu: {ex.Message}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        // Example trigger: call this method inside a button click event handler
+        private void GrafikKaydetButon_Click(object sender, RoutedEventArgs e)
+        {
+            // Saves the PNG image with a timestamp matching your log files
+            string snapshotName = $"Telemetry_Graph_{DateTime.Now:yyyyMMdd_HHmmss}";
+            string belgelerim = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            SaveChartAsPng(System.IO.Path.Combine(belgelerim, snapshotName));
+        }
 
         public class MainViewModel
         {
@@ -218,6 +296,5 @@ namespace Telemetri
                 };
             }
         }
-
     }
 }

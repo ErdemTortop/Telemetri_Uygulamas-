@@ -24,5 +24,10 @@ namespace Telemetri_tasarım_denemesi
         {
             InitializeComponent();  
         }
+
+        public void HomePage_Loaded(object sender, RoutedEventArgs e)
+        {
+            VersionLabel.Text = Telemetri.Properties.Settings.Default.TelemetriVersion;
+        }
     }
 }

@@ -48,17 +48,16 @@ namespace Telemetri_tasarım_denemesi
 
         private void UsbPage_Loaded(object sender, RoutedEventArgs e)
         {
-            AppState.DurumDegisti += Durum_Degisti;
-            foreach (string port in SerialPort.GetPortNames())
-            {
-                PortComboBox.Items.Add(port);
-            }
+            refreshPorts();
+            
             RateBox.SelectedItem = "9600";
             RateBox.Items.Add("9600");
             RateBox.Items.Add("115200");
             RateBox.Items.Add("19200");
             RateBox.Items.Add("57600");
             
+            SpecialCheckbox.IsChecked = Telemetri.Properties.Settings.Default.usbIsMainPage;
+            SpecialCheckbox.Opacity = 0;
 
             if (AppState.SerialPort != null && AppState.SerialPort.IsOpen)
             {
@@ -133,18 +132,41 @@ namespace Telemetri_tasarım_denemesi
             }
         }
 
-        private void PortYenileButon_Click(object sender, RoutedEventArgs e)
+        private void refreshPorts()
         {
             PortComboBox.Items.Clear();
-            RateBox.Items.Clear();
+            bool HasAtleatOnePort = false;
             foreach (string port in SerialPort.GetPortNames())
             {
                 PortComboBox.Items.Add(port);
+                HasAtleatOnePort = true;
             }
-            RateBox.Items.Add("9600");
-            RateBox.Items.Add("115200");
-            RateBox.Items.Add("19200");
-            RateBox.Items.Add("57600");
+            if (HasAtleatOnePort)
+            {
+                PortComboBox.SelectedIndex = 0;
+            }
+        }
+
+        private void PortsSelectionOpened(object sender, ContextMenuEventArgs e)
+        {
+            refreshPorts();
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            Telemetri.Properties.Settings.Default.usbIsMainPage = true;
+            Telemetri.Properties.Settings.Default.Save();
+        }
+
+        private void SpecialCheckbox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Telemetri.Properties.Settings.Default.usbIsMainPage = false;
+            Telemetri.Properties.Settings.Default.Save();
+        }
+
+        private void CheckBox_MouseEnter(object sender, MouseEventArgs e)
+        {
+            SpecialCheckbox.Opacity = 100;
         }
         private void Durum_Degisti(AppState.BaglantiDurumu yeniDurum)
         {
@@ -163,6 +185,11 @@ namespace Telemetri_tasarım_denemesi
                         break;
                 }
             });
+        }
+
+        private void SpecialCheckbox_MouseLeave(object sender, MouseEventArgs e)
+        {
+            SpecialCheckbox.Opacity = 0;
         }
 
         private void UsbPage_Unloaded(object sender, RoutedEventArgs e)

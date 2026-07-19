@@ -9,7 +9,7 @@
       Title="OnurFurkan">
 
     <Grid>
-        <Image HorizontalAlignment="Center"   VerticalAlignment="Center" Source="/images/Photos/OnurFurkan.jpeg"/>
+        <Image HorizontalAlignment="Center"   VerticalAlignment="Center" Source="/images/Photos/OnurFurkan2.png"/>
 
     </Grid>
 </Page>
