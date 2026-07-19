@@ -28,7 +28,7 @@ namespace Telemetri_tasarım_denemesi
             else
             {
                 Home_Click(null, null);
-            }
+            
         }
       
         private void Usb_Click(object sender, RoutedEventArgs e)

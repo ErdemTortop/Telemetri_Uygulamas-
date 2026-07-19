@@ -18,7 +18,6 @@ namespace Telemetri_tasarım_denemesi
     {
         static byte[] buffer = new byte[9];
         public static SerialPort SerialPort { get; set; }
-
         public static Thread okumaThread { get; set; }
         public static byte hiz { get; set; }
         public static byte voltaj { get; set; }
@@ -30,6 +29,8 @@ namespace Telemetri_tasarım_denemesi
         private static readonly object kayitlock = new object();
 
         public static System.Threading.Timer yazimTimer;
+
+        public static System.Threading.Timer PortTimer;
 
         public static bool RecordFlag;
 
@@ -80,15 +81,14 @@ namespace Telemetri_tasarım_denemesi
                         KayıtDosya = dosyaYolu;
                         ExKayıtDosya = dosyaYolu;
                         BaslıkYazıldi = true;
-                        yazimKuyrugu.Enqueue("Zaman_ms;  hiz_kmh; T_bat_C; V_bat_C; kalan_enerji_Wh; Zaman_Clcok;");
+                        yazimKuyrugu.Enqueue("zaman_ms;  hiz_kmh; T_bat_C; V_bat_C; kalan_enerji_Wh");
                     }
                     YeniSatırlar =
-                    $"{AracStopWatch.ElapsedMilliseconds} ms;" +
-                    $"{AppState.hiz} km/h;" +
-                    $"{AppState.sicaklik} °C;" +
-                    $"{AppState.voltaj} V;" +
-                    $"{AppState.enerji} wh;" + 
-                    $"{DateTime.Now:HH:mm:ss};";
+                    $"{AracStopWatch.ElapsedMilliseconds};" +
+                    $"{AppState.hiz};" +
+                    $"{AppState.sicaklik};" +
+                    $"{AppState.voltaj};" +
+                    $"{AppState.enerji}";
                     yazimKuyrugu.Enqueue(YeniSatırlar);
                     KayıtSayaci++;
                     return YeniSatırlar;
@@ -100,7 +100,13 @@ namespace Telemetri_tasarım_denemesi
                 }
             }
         }
-       
+
+        public enum BaglantiDurumu
+        { 
+            Bagli,
+            Kopuk,
+            YenidenBaglaniyor,
+        }
 
         public static void ByteIsle(byte gelen)
         {
@@ -158,7 +164,7 @@ namespace Telemetri_tasarım_denemesi
             }
             else if (GelenByteIndex == 8)
             {
-                int CRC = (byte)(buffer[2] + buffer[3] + buffer[4] + buffer[5]) & 0xFF;
+                int CRC = (byte)(buffer[2] + buffer[3] + buffer[4] + buffer[5] + buffer[6] + buffer[7]) & 0xFF;
                 if (gelen == CRC)
                 {
                     if (AppState.IlkVeriGeldi == false)
@@ -184,7 +190,7 @@ namespace Telemetri_tasarım_denemesi
                     SonVeriZamani = DateTime.Now;
                     if (buffer[7] == 9)
                     {
-                        byte[] ACK_Byte = new byte[] { 1 };
+                        byte[] ACK_Byte = new byte[] { 1,};
                         SerialPort.Write(ACK_Byte, 0, 1);
                     }
                     OncekiSeq = buffer[6];
@@ -235,6 +241,16 @@ namespace Telemetri_tasarım_denemesi
                 catch (Exception ex)
                 {
                     System.Diagnostics.Debug.WriteLine($"[UART HATA] {ex}");
+                        calisiyor = false;
+                        Durum = BaglantiDurumu.Kopuk;
+                    try 
+                    {
+                        SerialPort.Close();
+                    }
+                    catch (Exception CloseEx)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"[Close Hatası] {CloseEx}");
+                    }
                 }
             }
         }
@@ -243,6 +259,7 @@ namespace Telemetri_tasarım_denemesi
         {
             if (SerialPort != null)
             {
+                Durum = BaglantiDurumu.Bagli;
                 calisiyor = true;
                 okumaThread = new Thread(okumaDongusu);
                 okumaThread.IsBackground = true;
@@ -257,6 +274,46 @@ namespace Telemetri_tasarım_denemesi
                 calisiyor = false;
                 okumaThread?.Join(500);
                 yazimTimer?.Dispose(); 
+            }
+        }
+
+        public static void BaglantiIzlemeyiBaslat() 
+        {
+            PortTimer = new System.Threading.Timer(YenidenBaglanmayiDene, null, 2000, 2000);
+        }
+
+        public static void YenidenBaglanmayiDene(object state)
+        {   
+            if (Durum != BaglantiDurumu.Kopuk) return;
+            if (string.IsNullOrEmpty(SecilenPort)) return;
+            if (SerialPort.GetPortNames().Contains(SecilenPort))
+            {
+                Durum = BaglantiDurumu.YenidenBaglaniyor;
+                try 
+                {
+                    try { SerialPort?.Dispose(); } catch { }
+                    int rate = int.Parse(SecilenRate);
+                    SerialPort = new SerialPort(SecilenPort, rate);
+                    SerialPort.Open();
+                    StartListening();
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"[Yeniden Bağlanma Hatası] {ex.Message}");
+                    Durum = BaglantiDurumu.Kopuk;
+                }
+            }
+        }
+
+        public static event Action<BaglantiDurumu> DurumDegisti;
+        private static BaglantiDurumu _Durum = BaglantiDurumu.Kopuk;
+        public static BaglantiDurumu Durum
+        {
+            get => _Durum;
+            set
+            {
+                _Durum = value;
+                DurumDegisti?.Invoke(value);
             }
         }
     }
