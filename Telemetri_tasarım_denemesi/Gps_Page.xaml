@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Telemetri"
+      xmlns:mapsui="clr-namespace:Mapsui.UI.Wpf;assembly=Mapsui.UI.Wpf"
       Loaded="GpsPage_Loaded"
       Unloaded="GpshPage_Unloaded"
       mc:Ignorable="d" 
@@ -16,10 +17,42 @@
             <RowDefinition Height="100"/>
             <RowDefinition Height="700"/>
         </Grid.RowDefinitions>
+
         <Border CornerRadius="20" BorderThickness="0" Height="70" Width="490" HorizontalAlignment="Left" Margin="10,15,0,15"/>
         <TextBlock Foreground="#E2E8F0" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="   Asena Konum İzleme Ekranı" VerticalAlignment="Center" FontSize="30"/>
-        <Grid Grid.Row="1">
+
+        <!-- 2. MAP PLACED INSIDE THE SECOND ROW -->
+        <!-- MAP PLACED INSIDE THE SECOND ROW -->
+        <Grid Grid.Row="1" Margin="10,0,10,10">
+            <Border CornerRadius="15" Background="#1E293B" ClipToBounds="True">
+                <!-- Grid içindeki elemanlar üst üste biner -->
+                <Grid>
+                    <!-- 1. Temel Harita Kontrolü -->
+                    <mapsui:MapControl x:Name="MyMap" />
+
+                    <!-- 2. Haritanın Tam Üzerine WPF Çizim Alanı Ekliyoruz -->
+                    <Canvas x:Name="OverlayCanvas" IsHitTestVisible="False">
+                        <!-- Mavi Noktamız: Tamamen saf WPF nesnesi -->
+                        <Ellipse x:Name="WpfBlueDot" 
+                                 Width="16" Height="16" 
+                                 Fill="#1E90FF" 
+                                 Stroke="White" StrokeThickness="3">
+                            <Ellipse.Effect>
+                                <DropShadowEffect BlurRadius="5" Color="Black" Opacity="0.5" Direction="270" ShadowDepth="2"/>
+                            </Ellipse.Effect>
+                        </Ellipse>
+                    </Canvas>
+                </Grid>
+            </Border>
         </Grid>
-            
+        <Button Style="{StaticResource OrangeHoverButton}" x:Name="takip_et" Margin="956,37,34,683" Click="takip_et_Click" Grid.RowSpan="2">
+            <CheckBox Content="Aracı takip et" FontSize="13" Foreground="White" BorderBrush="Black" IsChecked="True" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
+                <CheckBox.LayoutTransform>
+                    <!-- 1.5 kat büyütür. Değeri değiştirerek kutuyu daha da büyütebilirsiniz -->
+                    <ScaleTransform ScaleX="2.30769231" ScaleY="2.30769231" />
+                </CheckBox.LayoutTransform>
+            </CheckBox>
+        </Button>
+
     </Grid>
 </Page>
