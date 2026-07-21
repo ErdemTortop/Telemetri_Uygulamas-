@@ -190,7 +190,7 @@ namespace Telemetri_tasarım_denemesi
                     SonVeriZamani = DateTime.Now;
                     if (buffer[7] == 9)
                     {
-                        byte[] ACK_Byte = new byte[] { 1,};
+                        byte[] ACK_Byte = new byte[] { 1 };
                         SerialPort.Write(ACK_Byte, 0, 1);
                     }
                     OncekiSeq = buffer[6];
