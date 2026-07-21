@@ -188,7 +188,7 @@ namespace Telemetri_tasarım_denemesi
                     GelenByteIndex = 0;
                     KayitYap();
                     SonVeriZamani = DateTime.Now;
-                    if (buffer[7] == 9)
+                    if (buffer[7] == 1)
                     {
                         byte[] ACK_Byte = new byte[] { 1 };
                         SerialPort.Write(ACK_Byte, 0, 1);
