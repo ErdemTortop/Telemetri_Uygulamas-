@@ -16,7 +16,7 @@ namespace Telemetri_tasarım_denemesi
 {
     public static class AppState
     {
-        static byte[] buffer = new byte[9];
+        static byte[] buffer = new byte[13];
         public static SerialPort SerialPort { get; set; }
         public static Thread okumaThread { get; set; }
         public static byte hiz { get; set; }
@@ -48,6 +48,8 @@ namespace Telemetri_tasarım_denemesi
 
         public static int KayipPaket;
 
+        public static uint Car_Ms_Since_Started;
+
         public static byte OncekiSeq;
 
         public static string TopluYazi;
@@ -55,8 +57,6 @@ namespace Telemetri_tasarım_denemesi
         public static string YeniSatırlar;
 
         public static ConcurrentQueue<string> yazimKuyrugu = new ConcurrentQueue<string>();
-
-        public static System.Diagnostics.Stopwatch AracStopWatch = new System.Diagnostics.Stopwatch();
 
         public static DateTime SonVeriZamani = DateTime.MinValue;
 
@@ -84,7 +84,7 @@ namespace Telemetri_tasarım_denemesi
                         yazimKuyrugu.Enqueue("zaman_ms;  hiz_kmh; T_bat_C; V_bat_C; kalan_enerji_Wh");
                     }
                     YeniSatırlar =
-                    $"{AracStopWatch.ElapsedMilliseconds};" +
+                    $"{Car_Ms_Since_Started};" +
                     $"{AppState.hiz};" +
                     $"{AppState.sicaklik};" +
                     $"{AppState.voltaj};" +
@@ -164,12 +164,31 @@ namespace Telemetri_tasarım_denemesi
             }
             else if (GelenByteIndex == 8)
             {
-                int CRC = (byte)(buffer[2] + buffer[3] + buffer[4] + buffer[5] + buffer[6] + buffer[7]) & 0xFF;
+                buffer[8] = gelen;
+                GelenByteIndex = 9;
+            }
+            else if (GelenByteIndex == 9)
+            {
+                buffer[9] = gelen;
+                GelenByteIndex = 10;
+            }
+            else if (GelenByteIndex == 10)
+            {
+                buffer[10] = gelen;
+                GelenByteIndex = 11;
+            }
+            else if (GelenByteIndex == 11)
+            {
+                buffer[11] = gelen;
+                GelenByteIndex = 12;
+            }
+            else if (GelenByteIndex == 12)
+            {
+                int CRC = (byte)(buffer[2] + buffer[3] + buffer[4] + buffer[5] + buffer[6] + buffer[7] + buffer[8] + buffer[9] + buffer[10] + buffer[11]) & 0xFF;
                 if (gelen == CRC)
                 {
                     if (AppState.IlkVeriGeldi == false)
                     {
-                        AracStopWatch.Start();
                         IlkVeriGeldi = true;
                         OncekiSeq = buffer[6];
                     }
@@ -185,6 +204,7 @@ namespace Telemetri_tasarım_denemesi
                     hiz = buffer[3];
                     sicaklik = buffer[4];
                     enerji = buffer[5];
+                    Car_Ms_Since_Started = BitConverter.ToUInt32(buffer, 8);
                     GelenByteIndex = 0;
                     KayitYap();
                     SonVeriZamani = DateTime.Now;
