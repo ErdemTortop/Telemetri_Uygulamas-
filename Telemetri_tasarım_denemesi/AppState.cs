@@ -336,6 +336,46 @@ namespace Telemetri_tasarım_denemesi
                 DurumDegisti?.Invoke(value);
             }
         }
+
+        public static void BaglantiIzlemeyiBaslat() 
+        {
+            PortTimer = new System.Threading.Timer(YenidenBaglanmayiDene, null, 2000, 2000);
+        }
+
+        public static void YenidenBaglanmayiDene(object state)
+        {   
+            if (Durum != BaglantiDurumu.Kopuk) return;
+            if (string.IsNullOrEmpty(SecilenPort)) return;
+            if (SerialPort.GetPortNames().Contains(SecilenPort))
+            {
+                Durum = BaglantiDurumu.YenidenBaglaniyor;
+                try 
+                {
+                    try { SerialPort?.Dispose(); } catch { }
+                    int rate = int.Parse(SecilenRate);
+                    SerialPort = new SerialPort(SecilenPort, rate);
+                    SerialPort.Open();
+                    StartListening();
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"[Yeniden Bağlanma Hatası] {ex.Message}");
+                    Durum = BaglantiDurumu.Kopuk;
+                }
+            }
+        }
+
+        public static event Action<BaglantiDurumu> DurumDegisti;
+        private static BaglantiDurumu _Durum = BaglantiDurumu.Kopuk;
+        public static BaglantiDurumu Durum
+        {
+            get => _Durum;
+            set
+            {
+                _Durum = value;
+                DurumDegisti?.Invoke(value);
+            }
+        }
     }
 }
 
