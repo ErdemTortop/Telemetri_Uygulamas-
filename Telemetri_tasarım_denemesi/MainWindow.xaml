@@ -143,7 +143,7 @@
                             </Border>
 
                             <Border BorderBrush="Black" BorderThickness="0" Grid.Column="0" Grid.Row="1">
-                                <TextBox TextWrapping="Wrap" Text="Solar Team" Background="#FF262835" Foreground="#FFE2E8F0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" BorderBrush="{x:Null}" IsEnabled="False"/>
+                                <TextBox x:Name="SolarTeamNameBox" TextWrapping="Wrap" Text="Solar Team" Background="#FF262835" Foreground="#FFE2E8F0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" BorderBrush="{x:Null}" IsEnabled="False"/>
 
                             </Border>
 
